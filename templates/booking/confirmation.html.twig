@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Booking Confirmation
+{% endblock %}
+
+{% block body %}
+	<div class="mt-5 ">
+		<div class="confirmation-header p-4 rounded bg-light mb-4">
+			<h1 class="mb-4 text-success text-center">
+				<i class="fas fa-check-circle"></i>
+				Booking Confirmed!</h1>
+			<p class="lead text-center">Thank you for your booking! We’ve sent a confirmation to your email.</p>
+		</div>
+
+		<div class="confirmation-details p-4 rounded bg-light mb-5">
+			<h2 class="mb-4 text-center">Booking Summary</h2>
+
+			<div class="row mb-4">
+				<div class="col-md-6">
+					<h3 class="mb-3">Hotel Details</h3>
+					<p>
+						<strong>Hotel:</strong>
+						{{ booking_data.hotel_data.name }}</p>
+					<p>
+						<strong>Location:</strong>
+						{{ booking_data.hotel_data.location }}</p>
+					<p>
+						<strong>Check-in Date:</strong>
+						{{ booking_data.dates|first|date('Y-m-d') }}</p>
+					<p>
+						<strong>Check-out Date:</strong>
+						{{ booking_data.dates|last|date('Y-m-d') }}</p>
+					<p>
+						<strong>Total Nights:</strong>
+						{{ booking_data.dates|length }}</p>
+					<p>
+						<strong>Total Price:</strong>
+						${{ booking_data.booking_total }}</p>
+					<div class="text-center mt-4">
+						<a href="{{ path('homepage') }}" class="btn btn-primary">Return to Home</a>
+					</div>
+
+				</div>
+				<div class="col-md-6">
+					<img src="{{ asset('images/' ~ booking_data.hotel_data.image) }}" alt="{{ booking_data.hotel_data.name }}" class="img-fluid" style="max-width: 100%; height: auto;">
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

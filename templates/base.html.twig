@@ -1,17 +1,83 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+		{% block importmap %}
+			{{ importmap('app') }}
+		{% endblock %}
+	</head>
+	<body>
+		<header>
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<div class="container">
+					<a class="navbar-brand" href="{{ path('homepage') }}">Hotel Rental</a>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav me-auto">
+							<li class="nav-item">
+								<a class="nav-link {{ app.request.pathinfo == '/' ? 'active' : ''}}" href="{{ path('homepage') }}">Home</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {{ app.request.pathinfo == '/hotel' ? 'active' : ''}}" href="{{ path('hotel_index') }}">Hotels</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {{ app.request.pathinfo == '/contact' ? 'active' : ''}}" href="{{ path('contact') }}">Contact</a>
+							</li>
+						</ul>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+						<!-- User Authentication Links -->
+						<ul class="navbar-nav ms-auto">
+							{% if app.user %}
+								<!-- Show user's email and logout button if logged in -->
+								<li class="nav-item">
+									<span class="nav-link me-2">Signed:
+										{{ app.user.email }}</span>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('logout') }}">Logout</a>
+								</li>
+							{% else %}
+								<!-- Show login and register links if not logged in -->
+								<li class="nav-item">
+									<a class="nav-link {{ app.request.pathinfo == '/login' ? 'active' : ''}}" href="{{ path('login') }}">Login</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link {{ app.request.pathinfo == '/register' ? 'active' : ''}}" href="{{ path('register') }}">Register</a>
+								</li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+
+
+		<main>
+			{% block hero %}
+				<section class="hero hero-background text-white text-center py-5">
+					<div class="container">
+						<h1 class="display-4">Welcome to Our Hotel Rental Service</h1>
+						<p class="lead">Experience the most luxurious stay on the globe.</p>
+						<a class="btn btn-light btn-lg" href="{{ path('hotel_index') }}" role="button">Book Now</a>
+					</div>
+				</section>
+			{% endblock %}
+
+			<div class="container"> {% block body %}{% endblock %}
+				</div>
+			</main>
+
+			<footer class="bg-dark text-white text-center py-3">
+				<div class="container">
+					<p>&copy; 2024 Hotel Rental. All rights reserved.</p>
+				</div>
+			</footer>
+		</body>
+	</html>

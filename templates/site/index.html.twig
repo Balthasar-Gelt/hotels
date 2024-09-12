@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<section class="intro-section py-5 text-center bg-light">
+		<div class="container">
+			<h1 class="mb-3">Welcome to Our Luxury Hotel Rentals</h1>
+			<p class="lead">Why would you want to rent an entire hotel you might ask. That is a poor man's talk and we dont want you here. For the rest there awaits a selection of the finest hotels available for private rental, perfect for events of all kind. Ever wanted to organize an eyes wide shut event? We got you covered. Want to laugh at people at sidewalks for being so poor they can't affor to rent an entire hotel? No problem. We have a hotel for every occassion.
+			</p>
+		</div>
+	</section>
+
+	<section class="featured-hotels-section py-5">
+		<div class="">
+			<h2 class="text-center mb-5">Featured Hotels</h2>
+			<div class="row">
+				{% for hotel in featured_hotels %}
+					<div class="col-md-6 mb-4">
+						<div class="hotel-card card card-hover border-0 shadow-sm h-100">
+							<img src="{{ asset('images/' ~ hotel.image) }}" class="card-img-top" alt="{{ hotel.name }}">
+							<div class="card-body">
+								<h5 class="card-title">{{ hotel.name }}</h5>
+								<p class="card-text">{{ hotel.description }}</p>
+								<a href="{{ path('hotel_show', {id: hotel.id}) }}" class="btn btn-primary">View Details</a>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+
+	<section class="special-offers-section py-5">
+		<div class="container">
+			<h2 class="text-center mb-5 text-black text-shadow">Special Offers</h2>
+			<div class="row">
+				{% if special_offers %}
+					{% for special_offer in special_offers %}
+						<div class="col-md-6 mb-4">
+							<div class="offer-card card card-hover border-0 shadow-sm h-100">
+								<div class="card-body">
+									<h5 class="card-title text-primary">{{ special_offer.name }}</h5>
+									<p class="card-text">{{ special_offer.description }}</p>
+									<a href="{{ path('special_offer_show', {id: special_offer.id}) }}" class="btn btn-primary">Learn More</a>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+					<div class="col-md-12 mb-4">
+						<div class="offer-card card border-0 shadow-sm h-100">
+							<div class="card-body">
+								<h5 class="card-title text-secondary">No special offers available</h5>
+								<p class="card-text">No special offers are available at the current time. Become a member to get notified about new offers.</p>
+								<a href="{{ path('register') }}" class="btn btn-warning">Become a member</a>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+
+
+			</div>
+		</div>
+	</section>
+
+	<section class="cta-section text-center py-5">
+		<h2 class="cta-title">Looking for Your Next Stay?</h2>
+		<p class="cta-description">Explore our curated list of hotels and find the perfect place for your next getaway. Discover unique experiences and top-rated accommodations today!</p>
+		<a href="{{ path('hotel_index') }}" class="btn btn-primary">View Hotel List</a>
+	</section>
+
+{% endblock %}

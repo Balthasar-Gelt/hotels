@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+	<div class="mt-4 mb-5">
+		<div class="row">
+			<div class="col-lg-6 offset-lg-0 col-md-8 offset-md-2">
+				<h2 class="mb-4">Register</h2>
+				{{ form_start(form) }}
+
+				<div class="mb-3">
+					{{ form_label(form.email, '', {'label_attr': {'class': 'form-label'}}) }}
+					{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+					<div class="form-alert">
+						{{ form_errors(form.email) }}
+					</div>
+				</div>
+				<div class="mb-3">
+					{{ form_label(form.password, '', {'label_attr': {'class': 'form-label'}}) }}
+					{{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+					<div class="form-alert">
+						{{ form_errors(form.password) }}
+					</div>
+				</div>
+				<div class="mb-3">
+					{{ form_label(form.confirm_password, '', {'label_attr': {'class': 'form-label'}}) }}
+					{{ form_widget(form.confirm_password, {'attr': {'class': 'form-control'}}) }}
+					<div class="form-alert">
+						{{ form_errors(form.confirm_password) }}
+					</div>
+				</div>
+
+				<button type="submit" class="btn btn-primary ">Register</button>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

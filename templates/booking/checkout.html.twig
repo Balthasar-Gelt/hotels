@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Checkout
+{% endblock %}
+
+{% block body %}
+	<div class="mt-5">
+		<div
+			class="row">
+			<!-- Payment Information and Billing Address on the Left Side -->
+			<div class="col-md-6">
+				<div class="payment-section p-4 rounded bg-light mb-4">
+					<h2 class="mb-4">Payment Information</h2>
+
+					{{ form_start(form) }}
+
+					<div class="form-group mb-3">
+						{{ form_label(form.card_number) }}
+						{{ form_widget(form.card_number, { 'attr': {'class': 'form-control'} }) }}
+						<div class="form-alert">{{ form_errors(form.card_number) }}</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							{{ form_label(form.card_expire) }}
+							{{ form_widget(form.card_expire, { 'attr': {'class': 'form-control'} }) }}
+							<div class="form-alert">{{ form_errors(form.card_expire) }}</div>
+						</div>
+						<div class="col-md-6 mb-3">
+							{{ form_label(form.card_cvc) }}
+							{{ form_widget(form.card_cvc, { 'attr': {'class': 'form-control'} }) }}
+							<div class="form-alert">{{ form_errors(form.card_cvc) }}</div>
+						</div>
+					</div>
+
+					<h3 class="mt-4">Billing Address</h3>
+					<div class="form-group mb-3">
+						{{ form_label(form.email) }}
+						{{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+						<div class="form-alert">{{ form_errors(form.email) }}</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							{{ form_label(form.first_name) }}
+							{{ form_widget(form.first_name, { 'attr': {'class': 'form-control'} }) }}
+							<div class="form-alert">{{ form_errors(form.first_name) }}</div>
+						</div>
+						<div class="col-md-6 mb-3">
+							{{ form_label(form.last_name) }}
+							{{ form_widget(form.last_name, { 'attr': {'class': 'form-control'} }) }}
+							<div class="form-alert">{{ form_errors(form.last_name) }}</div>
+						</div>
+					</div>
+
+					<div class="form-group mb-3">
+						{{ form_label(form.billing_address) }}
+						{{ form_widget(form.billing_address, { 'attr': {'class': 'form-control'} }) }}
+						<div class="form-alert">{{ form_errors(form.billing_address) }}</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							{{ form_label(form.postal_code) }}
+							{{ form_widget(form.postal_code, { 'attr': {'class': 'form-control'} }) }}
+							<div class="form-alert">{{ form_errors(form.postal_code) }}</div>
+						</div>
+						<div class="col-md-6 mb-3">
+							{{ form_label(form.city) }}
+							{{ form_widget(form.city, { 'attr': {'class': 'form-control'} }) }}
+							<div class="form-alert">{{ form_errors(form.city) }}</div>
+						</div>
+					</div>
+
+					<h3 class="mt-4">Contact Person</h3>
+					<div class="form-group mb-3">
+						{{ form_label(form.contact_person) }}
+						{{ form_widget(form.contact_person, { 'attr': {'class': 'form-control'} }) }}
+						<div class="form-alert">{{ form_errors(form.contact_person) }}</div>
+					</div>
+
+					<div class="form-group mb-3">
+						{{ form_label(form.contact_phone) }}
+						{{ form_widget(form.contact_phone, { 'attr': {'class': 'form-control'} }) }}
+						<div class="form-alert">{{ form_errors(form.contact_phone) }}</div>
+					</div>
+
+					<div class="d-grid">
+						<button type="submit" class="btn btn-success btn-lg">Confirm Booking</button>
+					</div>
+
+					{{ form_end(form) }}
+				</div>
+			</div>
+
+			<!-- Booking Details and Hotel Image on the Right Side -->
+			<div class="col-md-6">
+				<div class="checkout-header text-center mb-4">
+					<h1 class="checkout-title">Your Booking Summary</h1>
+					<img src="{{ asset('images/' ~ booking_data.hotel_data.image) }}" alt="{{ booking_data.hotel_data.name }}" class="img-fluid mb-4" style="max-width: 100%; height: auto;">
+				</div>
+
+				<div class="booking-summary p-4 rounded bg-light">
+					<h2 class="mb-3">Booking Details</h2>
+					<p>
+						<strong>Hotel:</strong>
+						{{ booking_data.hotel_data.name }}</p>
+					<p>
+						<strong>Check-in Date:</strong>
+						{{ booking_data.dates|first|date('Y-m-d') }}</p>
+					<p>
+						<strong>Check-out Date:</strong>
+						{{ booking_data.dates|last|date('Y-m-d') }}</p>
+					<p>
+						<strong>Total Nights:</strong>
+						{{ booking_data.dates|length }}</p>
+					<p>
+						<strong>Total Price:</strong>
+						${{ booking_data.booking_total }}</p>
+				</div>
+
+				<div class="mt-4 mb-5">
+					<a href="{{ path('hotel_show', {id: booking_data.hotel_data.id}) }}" class="btn btn-secondary">Go Back to Booking</a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -25,4 +25,18 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    '@popperjs/core' => [
+        'version' => '2.11.8',
+    ],
+    'bootstrap/dist/css/bootstrap.min.css' => [
+        'version' => '5.3.3',
+        'type' => 'css',
+    ],
+    'vanilla-calendar-pro' => [
+        'version' => '2.9.10',
+    ],
+    'vanilla-calendar-pro/build/vanilla-calendar.min.css' => [
+        'version' => '2.9.10',
+        'type' => 'css',
+    ],
 ];
